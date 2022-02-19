@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import '../styles/home.css';
 
 function Home() {
-    const [categoryList, setCategoryList] = useState([]);
-    const [username, setUsername] = useState('');
+    var username = 'User';
+    localStorage.setItem('username',username);
 
     const logoutFn = () => {
-        setUsername("");
+        localStorage.setItem("username",'');
         window.location.href = "/";
     }
     const categories = [
@@ -14,12 +14,6 @@ function Home() {
         { name: 'Laptop', categoryId:2},
         { name: 'HeadPhones', categoryId:3 },
       ];
-
-
-    useEffect(() => {
-        setUsername("User");
-        setCategoryList(categories);
-    }, []);
 
     return (
         <div id="homePage">
@@ -33,7 +27,7 @@ function Home() {
                             <div className="user-actions d-flex flex-row">
                                 <a className="text-decoration-none" href="/">Account</a>
                                 <a className="text-decoration-none" href="/">Cart</a>
-                                <div className="user-intro">Hi {username}</div>
+                                <div className="user-intro">Hi {localStorage.getItem('username')}</div>
                                 <div className="logout-btn" onClick={logoutFn}>Logout</div>
                             </div>
                         </div>
@@ -49,7 +43,7 @@ function Home() {
                                 <a className="text-decoration-none text-white" href="/">All Products</a>
                             </div>
                             {
-                                categoryList.map((category) => (
+                                categories.map((category) => (
                                     <div key={category.categoryId} className="category-item rounded-3 d-flex justify-content-center align-items-center">
                                         <a href="/" className="text-decoration-none text-white">{category.name}</a>
                                     </div>
